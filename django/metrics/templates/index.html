@@ -1,0 +1,10 @@
+    <h1>Metrics</h1>
+{% if metric_list %}
+    <ul>
+    {% for metric in metric_list %}
+        <li><a href="/metrics/metric/{{ metric.id }}/">{{ metric.identifier }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No metrics have been created.</p>
+{% endif %}
