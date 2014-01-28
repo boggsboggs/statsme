@@ -1,0 +1,4 @@
+Django TODO:
+    Delete metrics
+    Migration
+    User login

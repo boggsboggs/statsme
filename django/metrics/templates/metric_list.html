@@ -3,16 +3,9 @@
 {% block content %}
 <h1>Metrics</h1>
 
-<ul>
-    {% for metric in object_list %}
-    <li><a href="/metrics/metric/{{ metric.id }}/">{{ metric.identifier }}</a></li>
-    {% endfor %}
-    <li>
-        <form name="create_metric" action="metric/create" method="post">
-            <input type="text" name="identifier" class="input-medium search-query"/>
-            <input type="submit" value="New Metric" class="btn btn-success"/>
-        </form>
+<form name="create_metric" action="metric/create" method="post">
+    <input type="text" name="identifier" class="input-medium search-query"/>
+    <input type="submit" value="New Metric" class="btn btn-success"/>
+</form>
 
-    </li>
-</ul>
 {% endblock %}

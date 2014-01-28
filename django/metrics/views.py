@@ -14,13 +14,20 @@ import logging
 from models import *
 
 
+class MetricListContextView(object):
+    def get_context_data(self, **kwargs):
+        context = super(MetricListContextView, self).get_context_data(**kwargs)
+        context['metric_list'] = Metric.objects.all()
+        return context
+
+
 # Metric CRUD
 class MetricCreate(CreateView):
     model = Metric
     fields = ['identifier']
 
 
-class MetricDetail(DetailView):
+class MetricDetail(MetricListContextView, DetailView):
     model = Metric
 
     def get_context_data(self, **kwargs):

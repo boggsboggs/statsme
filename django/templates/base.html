@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+  <!-- HEAD -->
   <head>
     <title></title>
 
@@ -10,13 +11,19 @@
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">    
   </head>
 
+  <!-- BODY -->
   <body>
+    <!-- BASE DIV -->
     <div class="container">
+        <!-- TITLE -->
         <h1 class="visible-desktop"><a href="#">Statsme</a></h1>
+
+        <!-- NAV BAR -->
         <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
+                <!-- NAV BAR ITEMS -->
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Projects</a></li>
               </ul>
@@ -24,25 +31,22 @@
           </div>
         </div>
 
+        <!-- CONTENT ROW -->
         <div class="row">
+            <!-- RECENT METRICS -->
              <div class="span4">
                  <ul class="nav nav-list">
-                    <li class="nav-header">What we are?</li>
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Our Clients</a></li>
-                    <li><a href="#">Our Services</a></li>
+                    <li class="nav-header">Recent Metrics</li>
+                {% for metric in metric_list|slice:"5" %}
+                    <li><a href="{{ metric.get_absolute_url }}">{{ metric.identifier }}</a></li>
+                {% endfor %}
                 </ul>
              </div>
+             <!-- CONTENT -->
              <div class="span8">
                  {% block content %}{% endblock %}
              </div>
          </div>        
-
-        <hr>
-        <div class="footer">
-        <p>&copy; 2013</p>
-        </div>
-
     </div>
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
