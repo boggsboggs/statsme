@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Metric(models.Model):
@@ -9,6 +10,9 @@ class Metric(models.Model):
         return 'Type: %s, Identifier: %s' % (
             self.metric_type, self.identifier)
 
+    def get_absolute_url(self):
+        return '/metrics' + reverse('metric_detail', kwargs={'pk': self.id}) + '/'
+
 
 class Event(models.Model):
     metric = models.ForeignKey(Metric)
@@ -18,3 +22,6 @@ class Event(models.Model):
     def __unicode__(self):
         return 'Metric: %s, Occurred At: %s, Value: %s\n' % (
             self.metric.identifier, self.occurred_at, self.value)
+
+    def get_absolute_url(self):
+        return '/metrics/' + reverse('event_detail', kwargs={'metric_pk': self.metric.id, 'pk': self.id}) + '/'

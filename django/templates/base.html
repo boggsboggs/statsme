@@ -1,10 +1,51 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title></title>
+
     <meta charset="utf-8">
-    <title>Statsme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.css"  type="text/css"/>
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">    
   </head>
 
   <body>
+    <div class="container">
+        <h1 class="visible-desktop"><a href="#">Statsme</a></h1>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Projects</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+             <div class="span4">
+                 <ul class="nav nav-list">
+                    <li class="nav-header">What we are?</li>
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Our Clients</a></li>
+                    <li><a href="#">Our Services</a></li>
+                </ul>
+             </div>
+             <div class="span8">
+                 {% block content %}{% endblock %}
+             </div>
+         </div>        
+
+        <hr>
+        <div class="footer">
+        <p>&copy; 2013</p>
+        </div>
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
   </body>
 </html>

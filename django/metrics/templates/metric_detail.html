@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hr />
+<form class="form-search" action='create' method="post">
+  <input type="number" class="input-medium search-query" name="value">
+  <input type="submit" class="btn" value="Trigger Event" />
+</form>
+
+<h2>Events</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Time</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for event in object.event_set.all %}
+    <tr>
+        <td>{{ event.occurred_at }}</td>
+        <td>{{ event.value }}</td>
+    </tr>      
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

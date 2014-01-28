@@ -1,22 +1,63 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
+
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import View
+
+from django.core.urlresolvers import reverse_lazy
+from django.utils import timezone
+
+import logging
 
 from models import *
 
 
-def index(request):
-    metrics = Metric.objects.all()
-    template = loader.get_template('metrics/index.html')
-    context = RequestContext(request, {
-            'metric_list': metrics
-        })
-    return HttpResponse(template.render(context))
+# Metric CRUD
+class MetricCreate(CreateView):
+    model = Metric
+    fields = ['identifier']
 
 
-def metric_detail(request, metric_id):
-    return HttpResponse('The detail page for metric %s' % metric_id)
+class MetricDetail(DetailView):
+    model = Metric
+
+    def get_context_data(self, **kwargs):
+        context = super(MetricDetail, self).get_context_data(**kwargs)
+        context['metric_id'] = self.object.id
+        return context
 
 
-def event_detail(request, event_id):
-    return HttpResponse('The event detail page for event %s' % event_id)
+class MetricUpdate(UpdateView):
+    model = Metric
+    fields = ['identifier']
+
+
+class MetricDelete(DeleteView):
+    model = Metric
+    success_url = reverse_lazy('metric-list')
+
+
+# Event CRUD
+class EventCreate(View):
+    def post(self, *args, **kwargs):
+        metric = get_object_or_404(Metric, pk=self.kwargs['metric_pk'])
+        value = self.request.POST['value']
+        event = Event(metric=metric, occurred_at=timezone.now(), value=value)
+        event.save()
+        redirect_url = event.metric.get_absolute_url()
+        logging.info(redirect_url)
+        return HttpResponseRedirect(redirect_url)
+
+
+class EventDetail(View):
+    pass
+
+
+class EventUpdate(View):
+    pass
+
+
+class EventDelete(View):
+    pass
